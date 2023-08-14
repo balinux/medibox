@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\MedicationResource\Pages;
-use App\Filament\Resources\MedicationResource\RelationManagers;
-use App\Models\Medication;
+use App\Filament\Resources\PillHistoryResource\Pages;
+use App\Filament\Resources\PillHistoryResource\RelationManagers;
+use App\Models\PillHistory;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,9 +13,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class MedicationResource extends Resource
+class PillHistoryResource extends Resource
 {
-    protected static ?string $model = Medication::class;
+    protected static ?string $model = PillHistory::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -27,21 +27,15 @@ class MedicationResource extends Resource
                     ->relationship('user', 'name')
                     ->required(),
                     // ->numeric(),
-                Forms\Components\TextInput::make('medication_name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('dosage')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\DatePicker::make('start_date')
+                Forms\Components\Select::make('medication_id')
+                    ->relationship('medication', 'medication_name')
                     ->required(),
-                Forms\Components\DatePicker::make('end_date'),
-                Forms\Components\TextInput::make('frequency')
+                    // ->numeric(),
+                Forms\Components\TextInput::make('dosage_taken')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('notes')
-                    ->maxLength(65535)
-                    ->columnSpanFull(),
+                Forms\Components\DateTimePicker::make('timestamp')
+                    ->required(),
             ]);
     }
 
@@ -52,18 +46,14 @@ class MedicationResource extends Resource
                 Tables\Columns\TextColumn::make('user.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('medication_name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('dosage')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('start_date')
-                    ->date()
+                Tables\Columns\TextColumn::make('medication.medication_name')
+                    ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('end_date')
-                    ->date()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('frequency')
+                Tables\Columns\TextColumn::make('dosage_taken')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('timestamp')
+                    ->dateTime()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -93,7 +83,7 @@ class MedicationResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageMedications::route('/'),
+            'index' => Pages\ManagePillHistories::route('/'),
         ];
     }
 }

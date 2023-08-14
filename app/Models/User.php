@@ -56,4 +56,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Reminder::class, 'user_id', 'id');
     }
+
+    public function pillHistory()
+    {
+        return $this->hasMany(PillHistory::class, 'user_id', 'id');
+    }
 }

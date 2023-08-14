@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Reminder extends Model
+class PillHistory extends Model
 {
     use HasFactory;
-    
+
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'user_id', 'medication_id', 'reminder_datetime', 'is_completed',
+        'user_id', 'medication_id', 'dosage_taken', 'timestamp',
     ];
 
     // Relasi dengan pengguna dan obat
@@ -24,10 +24,5 @@ class Reminder extends Model
     public function medication()
     {
         return $this->belongsTo(Medication::class, 'id', 'id');
-    }
-
-    public function pillHistory()
-    {
-        return $this->hasMany(PillHistory::class, 'medication_id', 'id');
     }
 }
