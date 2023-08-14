@@ -51,6 +51,7 @@ class MedicationResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('user.name')
                     ->numeric()
+                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('medication_name')
                     ->searchable(),
