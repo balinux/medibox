@@ -17,7 +17,7 @@ class MedicationResource extends Resource
 {
     protected static ?string $model = Medication::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-eye-dropper';
 
     public static function form(Form $form): Form
     {
@@ -89,11 +89,11 @@ class MedicationResource extends Resource
                 Tables\Actions\CreateAction::make(),
             ]);
     }
-
+    
     public static function getPages(): array
     {
         return [
             'index' => Pages\ManageMedications::route('/'),
         ];
-    }
+    }    
 }
