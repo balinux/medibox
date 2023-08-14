@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Medication::class, 'user_id', 'id');
     }
+
+    public function reminders()
+    {
+        return $this->hasMany(Reminder::class, 'user_id', 'id');
+    }
 }

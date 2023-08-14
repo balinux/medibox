@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\MedicationResource\Pages;
-use App\Filament\Resources\MedicationResource\RelationManagers;
-use App\Models\Medication;
+use App\Filament\Resources\ReminderResource\Pages;
+use App\Filament\Resources\ReminderResource\RelationManagers;
+use App\Models\Reminder;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,9 +13,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class MedicationResource extends Resource
+class ReminderResource extends Resource
 {
-    protected static ?string $model = Medication::class;
+    protected static ?string $model = Reminder::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -26,22 +26,15 @@ class MedicationResource extends Resource
                 Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
                     ->required(),
-                    // ->numeric(),
-                Forms\Components\TextInput::make('medication_name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('dosage')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\DatePicker::make('start_date')
+                // ->numeric(),
+                Forms\Components\Select::make('medication_id')
+                    ->relationship('medication', 'medication_name')
                     ->required(),
-                Forms\Components\DatePicker::make('end_date'),
-                Forms\Components\TextInput::make('frequency')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Textarea::make('notes')
-                    ->maxLength(65535)
-                    ->columnSpanFull(),
+                // ->numeric(),
+                Forms\Components\DateTimePicker::make('reminder_datetime')
+                    ->required(),
+                Forms\Components\Toggle::make('is_completed')
+                    ->required(),
             ]);
     }
 
@@ -52,18 +45,14 @@ class MedicationResource extends Resource
                 Tables\Columns\TextColumn::make('user.name')
                     // ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('medication_name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('dosage')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('start_date')
-                    ->date()
+                Tables\Columns\TextColumn::make('medication.medication_name')
+                    // ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('end_date')
-                    ->date()
+                Tables\Columns\TextColumn::make('reminder_datetime')
+                    ->dateTime()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('frequency')
-                    ->searchable(),
+                Tables\Columns\IconColumn::make('is_completed')
+                    ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -93,7 +82,7 @@ class MedicationResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageMedications::route('/'),
+            'index' => Pages\ManageReminders::route('/'),
         ];
     }
 }
