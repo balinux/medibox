@@ -20,8 +20,10 @@ return new class extends Migration
             $table->date('end_date')->nullable();
             $table->string('frequency');
             $table->text('notes')->nullable();
+            $table->foreignId('shelf_id')->nullable()->constrained('drug_shelves');
             $table->timestamps();
         });
+        
     }
 
     /**

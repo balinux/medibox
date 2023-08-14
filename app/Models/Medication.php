@@ -12,7 +12,7 @@ class Medication extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'user_id', 'medication_name', 'dosage', 'start_date', 'end_date', 'frequency', 'notes',
+        'user_id', 'medication_name', 'dosage', 'start_date', 'end_date', 'frequency', 'notes', 'shelf_id'
     ];
 
     // Relasi dengan pengguna dan pengingat
@@ -24,5 +24,10 @@ class Medication extends Model
     public function reminders()
     {
         return $this->hasMany(Reminder::class, 'medication_id', 'id');
+    }
+
+    public function drugShelf()
+    {
+        return $this->belongsTo(DrugShelf::class, 'id', 'id');
     }
 }

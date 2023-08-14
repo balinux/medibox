@@ -27,6 +27,10 @@ class MedicationResource extends Resource
                     ->relationship('user', 'name')
                     ->required(),
                     // ->numeric(),
+                Forms\Components\Select::make('shelf_id')
+                    ->relationship('drugShelf', 'shelf_name')
+                    ->required(),
+                    // ->numeric(),
                 Forms\Components\TextInput::make('medication_name')
                     ->required()
                     ->maxLength(255),
@@ -49,7 +53,12 @@ class MedicationResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user.name')
+                Tables\Columns\TextColumn::make('user_id')
+                    ->numeric()
+                    ->searchable()
+                    ->sortable(),
+                // Tables\Columns\TextColumn::make('drugShelf.shelf_name')
+                Tables\Columns\TextColumn::make('shelf_id')
                     ->numeric()
                     ->searchable()
                     ->sortable(),
