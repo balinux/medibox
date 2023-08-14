@@ -42,4 +42,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    protected $primaryKey = 'id';
+
+
+    // Relasi dengan obat dan pengingat
+    public function medications()
+    {
+        return $this->hasMany(Medication::class, 'user_id', 'id');
+    }
 }
