@@ -18,7 +18,7 @@ class Medication extends Model
     // Relasi dengan pengguna dan pengingat
     public function user()
     {
-        return $this->belongsTo(User::class, 'id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function reminders()
@@ -28,6 +28,6 @@ class Medication extends Model
 
     public function drugShelf()
     {
-        return $this->belongsTo(DrugShelf::class, 'id', 'id');
+        return $this->belongsTo(DrugShelf::class, 'shelf_id', 'id');
     }
 }

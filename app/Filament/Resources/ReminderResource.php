@@ -44,7 +44,7 @@ class ReminderResource extends Resource
             ->columns([
                 // Tables\Columns\TextColumn::make('user')
                 // Tables\Columns\TextColumn::make('user_id')
-                Tables\Columns\TextColumn::make('user_id')->exists('user')
+                Tables\Columns\TextColumn::make('user.name')
                     // ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('medication.medication_name')

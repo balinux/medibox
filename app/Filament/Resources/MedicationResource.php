@@ -53,12 +53,12 @@ class MedicationResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user_id')
+                Tables\Columns\TextColumn::make('user.name')
                     ->numeric()
                     ->searchable()
                     ->sortable(),
                 // Tables\Columns\TextColumn::make('drugShelf.shelf_name')
-                Tables\Columns\TextColumn::make('shelf_id')
+                Tables\Columns\TextColumn::make('drugShelf.shelf_name')
                     ->numeric()
                     ->searchable()
                     ->sortable(),
