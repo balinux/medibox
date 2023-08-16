@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\MedicationController;
 use App\Http\Controllers\Api\ReminderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,4 +29,5 @@ Route::get('reminder', [ReminderController::class, 'index']);
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/logout', [\App\Http\Controllers\Api\AuthController::class, 'logout']);
     Route::get('reminder', [ReminderController::class, 'index']);
+    Route::get('medication', [MedicationController::class, 'index']);
 });
