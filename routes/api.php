@@ -20,3 +20,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('reminder', [ReminderController::class, 'index']);
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    // Route::get('/', function () {
+    //     // Uses first & second middleware...
+    // });
+
+    // Route::get('/user/profile', function () {
+    //     // Uses first & second middleware...
+    // });
+
+    Route::get('reminder', [ReminderController::class, 'index']);
+});
