@@ -26,17 +26,27 @@ class MedicationResource extends Resource
                 Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
                     ->required(),
-                    // ->numeric(),
+                // ->numeric(),
                 Forms\Components\Select::make('shelf_id')
                     ->relationship('drugShelf', 'shelf_name')
                     ->required(),
-                    // ->numeric(),
+                // ->numeric(),
                 Forms\Components\TextInput::make('medication_name')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('dosage')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\FileUpload::make('image')
+                    ->image()
+                    ->imageEditor()
+                    ->imageEditorAspectRatios([
+                        null,
+                        '16:9',
+                        '4:3',
+                        '1:1',
+                    ])
+                    ->columnSpanFull(),
                 Forms\Components\DatePicker::make('start_date')
                     ->required(),
                 Forms\Components\DatePicker::make('end_date'),
@@ -66,6 +76,8 @@ class MedicationResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('dosage')
                     ->searchable(),
+                Tables\Columns\ImageColumn::make('image')
+                ->circular(),
                 Tables\Columns\TextColumn::make('start_date')
                     ->date()
                     ->sortable(),
@@ -99,11 +111,11 @@ class MedicationResource extends Resource
                 Tables\Actions\CreateAction::make(),
             ]);
     }
-    
+
     public static function getPages(): array
     {
         return [
             'index' => Pages\ManageMedications::route('/'),
         ];
-    }    
+    }
 }

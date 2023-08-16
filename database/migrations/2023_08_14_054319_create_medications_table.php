@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->string('medication_name');
             $table->string('dosage');
+            $table->string('image')->nullable();
             $table->date('start_date');
             $table->date('end_date')->nullable();
             $table->string('frequency');

@@ -12,7 +12,7 @@ class Medication extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'user_id', 'medication_name', 'dosage', 'start_date', 'end_date', 'frequency', 'notes', 'shelf_id'
+        'user_id', 'medication_name', 'dosage', 'image', 'start_date', 'end_date', 'frequency', 'notes', 'shelf_id'
     ];
 
     // Relasi dengan pengguna dan pengingat
