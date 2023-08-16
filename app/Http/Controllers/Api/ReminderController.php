@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Reminder;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class ReminderController extends Controller
 {
@@ -40,7 +41,8 @@ class ReminderController extends Controller
         // $endDate = $currentDateTime->addMinutes(5)->toDateTimeString();
         // return gettype($endDate) . ' ' . $endDate;
 
-        $userId = $request->query('userId');
+        // $userId = $request->query('userId');
+        $userId = Auth::user()->id;
 
         $reminders = Reminder::with('medication.drugShelf')->with('user')
             ->where('user_id', $userId)

@@ -19,16 +19,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// register and login
+Route::post('/register', [\App\Http\Controllers\Api\AuthController::class, 'register']);
+Route::post('/login', [\App\Http\Controllers\Api\AuthController::class, 'login']);
+
 Route::get('reminder', [ReminderController::class, 'index']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    // Route::get('/', function () {
-    //     // Uses first & second middleware...
-    // });
-
-    // Route::get('/user/profile', function () {
-    //     // Uses first & second middleware...
-    // });
-
+    Route::post('/logout', [\App\Http\Controllers\Api\AuthController::class, 'logout']);
     Route::get('reminder', [ReminderController::class, 'index']);
 });
