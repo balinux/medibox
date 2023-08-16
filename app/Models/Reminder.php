@@ -23,7 +23,7 @@ class Reminder extends Model
 
     public function medication()
     {
-        return $this->belongsTo(Medication::class, 'id', 'id');
+        return $this->belongsTo(Medication::class, 'medication_id', 'id');
     }
 
     public function pillHistory()

@@ -46,8 +46,13 @@ class ReminderResource extends Resource
                 // Tables\Columns\TextColumn::make('user_id')
                 Tables\Columns\TextColumn::make('user.name')
                     // ->numeric()
+                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('medication.medication_name')
+                    // ->numeric()
+                    ->sortable(),
+
+                    Tables\Columns\TextColumn::make('medication.drugShelf.shelf_name')
                     // ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('reminder_datetime')
