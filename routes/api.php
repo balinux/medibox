@@ -31,4 +31,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('reminder', [ReminderController::class, 'index']);
     Route::get('reminder-base-timeframe', [ReminderController::class, 'timeFrame']);
     Route::get('medication', [MedicationController::class, 'index']);
+    Route::put('reminder/{id}/complete', [ReminderController::class,'complete']);
 });
