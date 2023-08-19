@@ -49,13 +49,45 @@ class ReminderController extends Controller
             ->whereBetween('reminder_datetime', [$startDate, $endDate])
             ->get();
 
+            $data = json_decode($reminders);
 
-        // $reminderId = $request->query('reminderId');
+            if (is_array($data)) {
+                $selectedData = [];
+                
+                foreach ($data as $item) {
+                    $medicationName = $item->medication->medication_name;
+                    $shelfName = $item->medication->drug_shelf->shelf_name;
+                    $drugShelfId = $item->medication->drug_shelf->id;
+                    $isCompleted = $item->is_completed;
+                    $username = $item->user->name;
+            
+                    $selectedData[] = [
+                        'medication_name' => $medicationName,
+                        'shelf_name' => $shelfName,
+                        'drug_shelf_id' => $drugShelfId,
+                        'is_completed' => $isCompleted,
+                        'username' => $username,
+                    ];
+                }
+            
+                $result = [
+                    'status' => 'success',
+                    'data' => $selectedData,
+                ];
+            
+                // Convert hasil menjadi JSON dan tampilkan
+                // echo json_encode($result);
+                return response()->json($result);
+            } else {
+                echo "Failed to parse JSON data.";
+            }
+                   
 
-        return response()->json([
-            'status' => 'success',
-            'data' => $reminders
-        ]);
+
+        // return response()->json([
+        //     'status' => 'success',
+        //     'data' => $reminders
+        // ]);
     }
 
     public function timeFrame(Request $request)
@@ -100,5 +132,16 @@ class ReminderController extends Controller
         //     ->whereMonth('reminder_datetime', Carbon::now()->month)
         //     ->get();
         // return $monthlyReminders;
+    }
+
+    public function complete(Request $request, $id)
+    {
+        $reminder = Reminder::findOrFail($id);
+        $reminder->update(['is_completed' => true]);
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $reminder
+        ]);
     }
 }
