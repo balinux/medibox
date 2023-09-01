@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\PersonalAccessTokenResource\Pages;
 use App\Filament\Resources\PersonalAccessTokenResource\RelationManagers;
 use App\Models\PersonalAccessToken;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -32,6 +33,7 @@ class PersonalAccessTokenResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('tokenable_id')
+                    ->description(fn (User $user, PersonalAccessToken $pat) => $user->where('id', '=', $pat->tokenable_id)->first()->name)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
@@ -60,11 +62,11 @@ class PersonalAccessTokenResource extends Resource
                 Tables\Actions\CreateAction::make(),
             ]);
     }
-    
+
     public static function getPages(): array
     {
         return [
             'index' => Pages\ManagePersonalAccessTokens::route('/'),
         ];
-    }    
+    }
 }
