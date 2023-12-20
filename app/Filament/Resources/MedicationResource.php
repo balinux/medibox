@@ -69,7 +69,7 @@ class MedicationResource extends Resource
                     ->sortable(),
                 // Tables\Columns\TextColumn::make('drugShelf.shelf_name')
                 Tables\Columns\TextColumn::make('drugShelf.shelf_name')
-                    ->numeric()
+                    ->label("Medication shelf")
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('medication_name')

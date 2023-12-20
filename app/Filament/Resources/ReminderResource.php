@@ -52,9 +52,11 @@ class ReminderResource extends Resource
                     // ->numeric()
                     ->sortable(),
 
-                    Tables\Columns\TextColumn::make('medication.drugShelf.shelf_name')
+                Tables\Columns\TextColumn::make('medication.drugShelf.shelf_name')
                     // ->numeric()
+                    ->label("Medication shelf")
                     ->sortable(),
+                    
                 Tables\Columns\TextColumn::make('reminder_datetime')
                     ->dateTime()
                     ->sortable(),

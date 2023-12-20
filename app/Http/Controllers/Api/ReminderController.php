@@ -47,6 +47,7 @@ class ReminderController extends Controller
         $reminders = Reminder::with('medication.drugShelf')->with('user')
             ->where('user_id', $userId)
             ->whereBetween('reminder_datetime', [$startDate, $endDate])
+            ->where('is_completed', false)
             ->get();
 
 
@@ -100,5 +101,16 @@ class ReminderController extends Controller
         //     ->whereMonth('reminder_datetime', Carbon::now()->month)
         //     ->get();
         // return $monthlyReminders;
+    }
+
+    public function complete(Request $request, $id)
+    {
+        $reminder = Reminder::findOrFail($id);
+        $reminder->update(['is_completed' => true]);
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $reminder
+        ]);
     }
 }
